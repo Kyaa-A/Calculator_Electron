@@ -1,5 +1,5 @@
-// src/components/CalculatorLayout.jsx
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
 import Calculator from "./Calculator";
 import SquareCalculator from "./shapes/SquareCalculator";
 import CircleCalculator from "./shapes/CircleCalculator";
@@ -11,23 +11,67 @@ const CalculatorLayout = () => {
   const [activeCalculator, setActiveCalculator] = useState("basic");
   const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false);
 
+  // Animation variants for the calculator components
+  const pageVariants = {
+    initial: {
+      opacity: 0,
+      x: -20,
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+    },
+    exit: {
+      opacity: 0,
+      x: 20,
+    },
+  };
+
+  const pageTransition = {
+    type: "tween",
+    duration: 0.3,
+  };
+
   const renderCalculator = () => {
+    let Component;
     switch (activeCalculator) {
       case "basic":
-        return <Calculator />;
+        Component = Calculator;
+        break;
       case "square":
-        return <SquareCalculator />;
+        Component = SquareCalculator;
+        break;
       case "circle":
-        return <CircleCalculator />;
+        Component = CircleCalculator;
+        break;
       case "triangle":
-        return <TriangleCalculator />;
+        Component = TriangleCalculator;
+        break;
       case "rectangle":
-        return <RectangleCalculator />;
+        Component = RectangleCalculator;
+        break;
       case "trapezoid":
-        return <TrapezoidCalculator />;
+        Component = TrapezoidCalculator;
+        break;
       default:
-        return <Calculator />;
+        Component = Calculator;
     }
+
+    return (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeCalculator}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={pageVariants}
+          transition={pageTransition}
+          className="w-full h-full flex items-center justify-center"
+        >
+          <Component />
+        </motion.div>
+      </AnimatePresence>
+    );
   };
 
   const handleAreaClick = () => {
@@ -39,6 +83,24 @@ const CalculatorLayout = () => {
     setIsAreaDropdownOpen(false);
   };
 
+  // Dropdown animation variants
+  const dropdownVariants = {
+    hidden: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   return (
     <div className="flex h-screen bg-gray-900 overflow-hidden">
       {/* Sidebar */}
@@ -46,33 +108,37 @@ const CalculatorLayout = () => {
         <h2 className="text-white text-xl font-bold mb-6">Calculator</h2>
         <div className="space-y-2">
           {/* Basic Calculator Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "basic" 
-                ? "bg-blue-600" 
+              activeCalculator === "basic"
+                ? "bg-blue-600"
                 : "bg-gray-700 hover:bg-gray-600"
             }`}
             onClick={() => setActiveCalculator("basic")}
           >
             Basic Calculator
-          </button>
+          </motion.button>
 
           {/* Area Calculator Dropdown */}
           <div className="relative">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-                activeCalculator !== "basic" 
-                  ? "bg-blue-600" 
+                activeCalculator !== "basic"
+                  ? "bg-blue-600"
                   : "bg-gray-700 hover:bg-gray-600"
               }`}
               onClick={handleAreaClick}
             >
               <div className="flex justify-between items-center">
                 <span>Area Calculator</span>
-                <svg
-                  className={`w-5 h-5 transition-transform duration-200 ${
-                    isAreaDropdownOpen ? "transform rotate-180" : ""
-                  }`}
+                <motion.svg
+                  animate={{ rotate: isAreaDropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-5 h-5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -83,45 +149,35 @@ const CalculatorLayout = () => {
                     strokeWidth={2}
                     d="M19 9l-7 7-7-7"
                   />
-                </svg>
+                </motion.svg>
               </div>
-            </button>
+            </motion.button>
 
             {/* Dropdown Menu */}
-            {isAreaDropdownOpen && (
-              <div className="absolute left-0 w-full mt-1 bg-gray-700 rounded-lg overflow-hidden shadow-lg">
-                <button
-                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                  onClick={() => handleShapeSelect("square")}
+            <AnimatePresence>
+              {isAreaDropdownOpen && (
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={dropdownVariants}
+                  className="absolute left-0 w-full mt-1 bg-gray-700 rounded-lg overflow-hidden shadow-lg"
                 >
-                  Square
-                </button>
-                <button
-                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                  onClick={() => handleShapeSelect("circle")}
-                >
-                  Circle
-                </button>
-                <button
-                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                  onClick={() => handleShapeSelect("triangle")}
-                >
-                  Triangle
-                </button>
-                <button
-                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                  onClick={() => handleShapeSelect("rectangle")}
-                >
-                  Rectangle
-                </button>
-                <button
-                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                  onClick={() => handleShapeSelect("trapezoid")}
-                >
-                  Trapezoid
-                </button>
-              </div>
-            )}
+                  {["square", "circle", "triangle", "rectangle", "trapezoid"].map(
+                    (shape) => (
+                      <motion.button
+                        key={shape}
+                        whileHover={{ backgroundColor: "rgba(75, 85, 99, 1)" }}
+                        className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                        onClick={() => handleShapeSelect(shape)}
+                      >
+                        {shape.charAt(0).toUpperCase() + shape.slice(1)}
+                      </motion.button>
+                    )
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
