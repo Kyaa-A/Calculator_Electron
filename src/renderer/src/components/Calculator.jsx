@@ -132,7 +132,7 @@ const Calculator = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+    <div className="flex flex-col items-center justify-center bg-gray-900 text-white">
       <div className="bg-gray-800 p-4 rounded-lg shadow-lg w-92">
         {/* Expression Display */}
         <div className="text-right text-gray-400 text-sm mb-2 h-6 overflow-hidden">
