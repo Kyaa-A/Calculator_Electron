@@ -9,6 +9,7 @@ import TrapezoidCalculator from "./shapes/TrapezoidCalculator";
 
 const CalculatorLayout = () => {
   const [activeCalculator, setActiveCalculator] = useState("basic");
+  const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false);
 
   const renderCalculator = () => {
     switch (activeCalculator) {
@@ -29,12 +30,22 @@ const CalculatorLayout = () => {
     }
   };
 
+  const handleAreaClick = () => {
+    setIsAreaDropdownOpen(!isAreaDropdownOpen);
+  };
+
+  const handleShapeSelect = (shape) => {
+    setActiveCalculator(shape);
+    setIsAreaDropdownOpen(false);
+  };
+
   return (
-    <div className="flex min-h-screen bg-gray-900">
-      {/* Fixed-width Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-64 bg-gray-800 p-6 shadow-lg overflow-y-auto">
-        <h2 className="text-white text-xl font-bold mb-6">Calculators</h2>
-        <div className="space-y-3">
+    <div className="flex h-screen bg-gray-900 overflow-hidden">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-800 p-6 shadow-lg">
+        <h2 className="text-white text-xl font-bold mb-6">Calculator</h2>
+        <div className="space-y-2">
+          {/* Basic Calculator Button */}
           <button
             className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
               activeCalculator === "basic" 
@@ -45,66 +56,79 @@ const CalculatorLayout = () => {
           >
             Basic Calculator
           </button>
-          <button
-            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "square" 
-                ? "bg-blue-600" 
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-            onClick={() => setActiveCalculator("square")}
-          >
-            Square Area
-          </button>
-          <button
-            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "circle" 
-                ? "bg-blue-600" 
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-            onClick={() => setActiveCalculator("circle")}
-          >
-            Circle Area
-          </button>
-          <button
-            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "triangle" 
-                ? "bg-blue-600" 
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-            onClick={() => setActiveCalculator("triangle")}
-          >
-            Triangle Area
-          </button>
-          <button
-            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "rectangle" 
-                ? "bg-blue-600" 
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-            onClick={() => setActiveCalculator("rectangle")}
-          >
-            Rectangle Area
-          </button>
-          <button
-            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "trapezoid" 
-                ? "bg-blue-600" 
-                : "bg-gray-700 hover:bg-gray-600"
-            }`}
-            onClick={() => setActiveCalculator("trapezoid")}
-          >
-            Trapezoid Area
-          </button>
+
+          {/* Area Calculator Dropdown */}
+          <div className="relative">
+            <button
+              className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
+                activeCalculator !== "basic" 
+                  ? "bg-blue-600" 
+                  : "bg-gray-700 hover:bg-gray-600"
+              }`}
+              onClick={handleAreaClick}
+            >
+              <div className="flex justify-between items-center">
+                <span>Area Calculator</span>
+                <svg
+                  className={`w-5 h-5 transition-transform duration-200 ${
+                    isAreaDropdownOpen ? "transform rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </div>
+            </button>
+
+            {/* Dropdown Menu */}
+            {isAreaDropdownOpen && (
+              <div className="absolute left-0 w-full mt-1 bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+                <button
+                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                  onClick={() => handleShapeSelect("square")}
+                >
+                  Square
+                </button>
+                <button
+                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                  onClick={() => handleShapeSelect("circle")}
+                >
+                  Circle
+                </button>
+                <button
+                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                  onClick={() => handleShapeSelect("triangle")}
+                >
+                  Triangle
+                </button>
+                <button
+                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                  onClick={() => handleShapeSelect("rectangle")}
+                >
+                  Rectangle
+                </button>
+                <button
+                  className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                  onClick={() => handleShapeSelect("trapezoid")}
+                >
+                  Trapezoid
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Main Content Area with margin to account for fixed sidebar */}
-      <div className="ml-64 flex-1 p-8">
-        <div className="flex items-center justify-center h-full">
-          <div className="w-full max-w-md">
-            {renderCalculator()}
-          </div>
-        </div>
+      {/* Main Content Area */}
+      <div className="flex-1 flex items-center justify-center p-8">
+        {renderCalculator()}
       </div>
     </div>
   );
