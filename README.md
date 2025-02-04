@@ -4,6 +4,14 @@ An Electron application with React
 
 ![Image](https://github.com/user-attachments/assets/e2d6fbc4-988f-46ab-bf9e-fa546e92da44)
 
+### Features
+- 📱Basic Calculator with standard arithmetic operations (+, -, ×, ÷)
+- ⌨️Full keyboard support for quick calculations
+- 💻Responsive design that works across different window sizes
+- 👍🏻Smooth transitions between calculators
+
+### Tech Stack
+
 
 ### Install
 
