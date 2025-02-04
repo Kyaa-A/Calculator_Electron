@@ -11,7 +11,16 @@ An Electron application with React
 - 👍🏻Smooth transitions between calculators
 
 ### Tech Stack
-
+Framework:
+- React (UI Library)
+- Framer Motion (Animation Library)
+Language: JavaScript
+Styling: TailwindCSS
+Build Tool: Vite
+Package Manager: npm
+Code Quality:
+- ESLint
+- Prettier
 
 ### Install
 
