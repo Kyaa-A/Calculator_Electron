@@ -1,12 +1,9 @@
-# calculator
+# Multi Calculator App
 
 An Electron application with React
 
-## Recommended IDE Setup
+![Image](https://github.com/user-attachments/assets/e2d6fbc4-988f-46ab-bf9e-fa546e92da44)
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-
-## Project Setup
 
 ### Install
 
