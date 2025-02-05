@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Calculator from './Calculator'
 import RomanCalculator from './RomanCalculator'
+import CurrencyConverter from './CurrencyConverter'
 import SquareCalculator from './shapes/SquareCalculator'
 import CircleCalculator from './shapes/CircleCalculator'
 import TriangleCalculator from './shapes/TriangleCalculator'
@@ -41,6 +42,9 @@ const CalculatorLayout = () => {
         break
       case 'roman':
         Component = RomanCalculator
+        break
+      case 'currency': 
+        Component = CurrencyConverter
         break
       case 'square':
         Component = SquareCalculator
@@ -133,6 +137,20 @@ const CalculatorLayout = () => {
             onClick={() => setActiveCalculator('roman')}
           >
             Roman Numeral
+          </motion.button>
+
+          {/* Currency Converter Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
+              activeCalculator === "currency"
+                ? "bg-blue-600"
+                : "bg-gray-700 hover:bg-gray-600"
+            }`}
+            onClick={() => setActiveCalculator("currency")}
+          >
+            Currency Converter
           </motion.button>
 
           {/* Area Calculator Dropdown */}
