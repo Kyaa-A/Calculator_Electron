@@ -1,60 +1,64 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
-import Calculator from "./Calculator";
-import SquareCalculator from "./shapes/SquareCalculator";
-import CircleCalculator from "./shapes/CircleCalculator";
-import TriangleCalculator from "./shapes/TriangleCalculator";
-import RectangleCalculator from "./shapes/RectangleCalculator";
-import TrapezoidCalculator from "./shapes/TrapezoidCalculator";
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Calculator from './Calculator'
+import RomanCalculator from './RomanCalculator'
+import SquareCalculator from './shapes/SquareCalculator'
+import CircleCalculator from './shapes/CircleCalculator'
+import TriangleCalculator from './shapes/TriangleCalculator'
+import RectangleCalculator from './shapes/RectangleCalculator'
+import TrapezoidCalculator from './shapes/TrapezoidCalculator'
 
 const CalculatorLayout = () => {
-  const [activeCalculator, setActiveCalculator] = useState("basic");
-  const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false);
+  const [activeCalculator, setActiveCalculator] = useState('basic')
+  const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false)
 
   // Animation variants for the calculator components
   const pageVariants = {
     initial: {
       opacity: 0,
-      x: -20,
+      x: -20
     },
     animate: {
       opacity: 1,
-      x: 0,
+      x: 0
     },
     exit: {
       opacity: 0,
-      x: 20,
-    },
-  };
+      x: 20
+    }
+  }
 
   const pageTransition = {
-    type: "tween",
-    duration: 0.3,
-  };
+    type: 'tween',
+    duration: 0.3
+  }
 
   const renderCalculator = () => {
-    let Component;
+    let Component
     switch (activeCalculator) {
-      case "basic":
-        Component = Calculator;
-        break;
-      case "square":
-        Component = SquareCalculator;
-        break;
-      case "circle":
-        Component = CircleCalculator;
-        break;
-      case "triangle":
-        Component = TriangleCalculator;
-        break;
-      case "rectangle":
-        Component = RectangleCalculator;
-        break;
-      case "trapezoid":
-        Component = TrapezoidCalculator;
-        break;
+      case 'basic':
+        Component = Calculator
+        break
+      case 'roman':
+        Component = RomanCalculator
+        break
+      case 'square':
+        Component = SquareCalculator
+        break
+      case 'circle':
+        Component = CircleCalculator
+        break
+      case 'triangle':
+        Component = TriangleCalculator
+        break
+      case 'rectangle':
+        Component = RectangleCalculator
+        break
+      case 'trapezoid':
+        Component = TrapezoidCalculator
+        break
       default:
-        Component = Calculator;
+        Component = Calculator
     }
 
     return (
@@ -71,17 +75,17 @@ const CalculatorLayout = () => {
           <Component />
         </motion.div>
       </AnimatePresence>
-    );
-  };
+    )
+  }
 
   const handleAreaClick = () => {
-    setIsAreaDropdownOpen(!isAreaDropdownOpen);
-  };
+    setIsAreaDropdownOpen(!isAreaDropdownOpen)
+  }
 
   const handleShapeSelect = (shape) => {
-    setActiveCalculator(shape);
-    setIsAreaDropdownOpen(false);
-  };
+    setActiveCalculator(shape)
+    setIsAreaDropdownOpen(false)
+  }
 
   // Dropdown animation variants
   const dropdownVariants = {
@@ -89,17 +93,17 @@ const CalculatorLayout = () => {
       opacity: 0,
       y: -10,
       transition: {
-        duration: 0.2,
-      },
+        duration: 0.2
+      }
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.2,
-      },
-    },
-  };
+        duration: 0.2
+      }
+    }
+  }
 
   return (
     <div className="flex h-screen bg-gray-900 overflow-hidden">
@@ -112,13 +116,23 @@ const CalculatorLayout = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "basic"
-                ? "bg-blue-600"
-                : "bg-gray-700 hover:bg-gray-600"
+              activeCalculator === 'basic' ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'
             }`}
-            onClick={() => setActiveCalculator("basic")}
+            onClick={() => setActiveCalculator('basic')}
           >
             Basic Calculator
+          </motion.button>
+
+          {/* Roman Numeral Calculator Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
+              activeCalculator === 'roman' ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'
+            }`}
+            onClick={() => setActiveCalculator('roman')}
+          >
+            Roman Numeral
           </motion.button>
 
           {/* Area Calculator Dropdown */}
@@ -127,9 +141,11 @@ const CalculatorLayout = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-                activeCalculator !== "basic"
-                  ? "bg-blue-600"
-                  : "bg-gray-700 hover:bg-gray-600"
+                ['square', 'circle', 'triangle', 'rectangle', 'trapezoid'].includes(
+                  activeCalculator
+                )
+                  ? 'bg-blue-600'
+                  : 'bg-gray-700 hover:bg-gray-600'
               }`}
               onClick={handleAreaClick}
             >
@@ -163,18 +179,16 @@ const CalculatorLayout = () => {
                   variants={dropdownVariants}
                   className="absolute left-0 w-full mt-1 bg-gray-700 rounded-lg overflow-hidden shadow-lg"
                 >
-                  {["square", "circle", "triangle", "rectangle", "trapezoid"].map(
-                    (shape) => (
-                      <motion.button
-                        key={shape}
-                        whileHover={{ backgroundColor: "rgba(75, 85, 99, 1)" }}
-                        className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
-                        onClick={() => handleShapeSelect(shape)}
-                      >
-                        {shape.charAt(0).toUpperCase() + shape.slice(1)}
-                      </motion.button>
-                    )
-                  )}
+                  {['square', 'circle', 'triangle', 'rectangle', 'trapezoid'].map((shape) => (
+                    <motion.button
+                      key={shape}
+                      whileHover={{ backgroundColor: 'rgba(75, 85, 99, 1)' }}
+                      className="w-full p-3 text-left text-white hover:bg-gray-600 transition-colors duration-200"
+                      onClick={() => handleShapeSelect(shape)}
+                    >
+                      {shape.charAt(0).toUpperCase() + shape.slice(1)}
+                    </motion.button>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -183,11 +197,9 @@ const CalculatorLayout = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        {renderCalculator()}
-      </div>
+      <div className="flex-1 flex items-center justify-center p-8">{renderCalculator()}</div>
     </div>
-  );
-};
+  )
+}
 
-export default CalculatorLayout;
+export default CalculatorLayout
