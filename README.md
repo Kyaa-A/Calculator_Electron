@@ -10,6 +10,7 @@ An Electron application with React
 - 💻Responsive design that works across different window sizes
 - 👍🏻Smooth transitions between calculators
 
+
 ### Tech Stack
 - Framework: React (UI Library) & Framer Motion (Animation Library)
 - Language: JavaScript
