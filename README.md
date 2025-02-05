@@ -1,12 +1,22 @@
-# calculator
+# Multi Calculator App
 
 An Electron application with React
 
-## Recommended IDE Setup
+![Image](https://github.com/user-attachments/assets/6b7a274d-26c3-4a95-82a6-d3d7f7faf562)
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+### Features
+- 📱Basic Calculator with standard arithmetic operations (+, -, ×, ÷)
+- ⌨️Full keyboard support for quick calculations
+- 💻Responsive design that works across different window sizes
+- 👍🏻Smooth transitions between calculators
 
-## Project Setup
+### Tech Stack
+- Framework: React (UI Library) & Framer Motion (Animation Library)
+- Language: JavaScript
+- Styling: TailwindCSS
+- Build Tool: Vite
+- Package Manager: npm
+- Code Quality: ESLint & Prettier
 
 ### Install
 
