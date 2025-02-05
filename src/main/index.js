@@ -19,6 +19,7 @@ function createWindow() {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.setTitle('Electron Calculator')
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
