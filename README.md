@@ -2,7 +2,7 @@
 
 An Electron application with React
 
-![Image](https://github.com/user-attachments/assets/6b7a274d-26c3-4a95-82a6-d3d7f7faf562)
+![Image](https://github.com/user-attachments/assets/5fa3e6a6-3175-496e-ac15-4e1a9e5a1695)
 
 ### Features
 - 📱Basic Calculator with standard arithmetic operations (+, -, ×, ÷)
