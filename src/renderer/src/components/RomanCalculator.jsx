@@ -6,7 +6,7 @@ const RomanCalculator = () => {
   const [result, setResult] = useState('');
   const [error, setError] = useState('');
 
-  // Convert decimal to Roman numeral
+  // decimal to Roman numeral
   const convertToRoman = (num) => {
     if (num < 1 || num > 3999) {
       throw new Error('Number must be between 1 and 3999');
@@ -41,7 +41,7 @@ const RomanCalculator = () => {
     return result;
   };
 
-  // Convert Roman numeral to decimal
+  //  Roman numeral to decimal
   const convertToNumber = (roman) => {
     const romanValues = {
       'I': 1,
@@ -53,7 +53,7 @@ const RomanCalculator = () => {
       'M': 1000
     };
 
-    // Validate Roman numeral format
+    //  Roman numeral format
     const validRomanRegex = /^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i;
     if (!validRomanRegex.test(roman)) {
       throw new Error('Invalid Roman numeral');
@@ -68,7 +68,7 @@ const RomanCalculator = () => {
 
       if (next && current < next) {
         result += next - current;
-        i++; // Skip the next character as it's already been counted
+        i++; 
       } else {
         result += current;
       }

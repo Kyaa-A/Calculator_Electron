@@ -1,68 +1,72 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Calculator from './Calculator'
-import RomanCalculator from './RomanCalculator'
-import CurrencyConverter from './CurrencyConverter'
-import SquareCalculator from './shapes/SquareCalculator'
-import CircleCalculator from './shapes/CircleCalculator'
-import TriangleCalculator from './shapes/TriangleCalculator'
-import RectangleCalculator from './shapes/RectangleCalculator'
-import TrapezoidCalculator from './shapes/TrapezoidCalculator'
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Calculator from './Calculator';
+import RomanCalculator from './RomanCalculator';
+import CurrencyConverter from './CurrencyConverter';
+import SquareCalculator from './shapes/SquareCalculator';
+import CircleCalculator from './shapes/CircleCalculator';
+import TriangleCalculator from './shapes/TriangleCalculator';
+import RectangleCalculator from './shapes/RectangleCalculator';
+import TrapezoidCalculator from './shapes/TrapezoidCalculator';
+import BMICalculator from './BMICalculator'; // Import the new BMI Calculator
 
 const CalculatorLayout = () => {
-  const [activeCalculator, setActiveCalculator] = useState('basic')
-  const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false)
+  const [activeCalculator, setActiveCalculator] = useState('basic');
+  const [isAreaDropdownOpen, setIsAreaDropdownOpen] = useState(false);
 
   // Animation variants for the calculator components
   const pageVariants = {
     initial: {
       opacity: 0,
-      x: -20
+      x: -20,
     },
     animate: {
       opacity: 1,
-      x: 0
+      x: 0,
     },
     exit: {
       opacity: 0,
-      x: 20
-    }
-  }
+      x: 20,
+    },
+  };
 
   const pageTransition = {
     type: 'tween',
-    duration: 0.3
-  }
+    duration: 0.3,
+  };
 
   const renderCalculator = () => {
-    let Component
+    let Component;
     switch (activeCalculator) {
       case 'basic':
-        Component = Calculator
-        break
+        Component = Calculator;
+        break;
       case 'roman':
-        Component = RomanCalculator
-        break
-      case 'currency': 
-        Component = CurrencyConverter
-        break
+        Component = RomanCalculator;
+        break;
+      case 'currency':
+        Component = CurrencyConverter;
+        break;
       case 'square':
-        Component = SquareCalculator
-        break
+        Component = SquareCalculator;
+        break;
       case 'circle':
-        Component = CircleCalculator
-        break
+        Component = CircleCalculator;
+        break;
       case 'triangle':
-        Component = TriangleCalculator
-        break
+        Component = TriangleCalculator;
+        break;
       case 'rectangle':
-        Component = RectangleCalculator
-        break
+        Component = RectangleCalculator;
+        break;
       case 'trapezoid':
-        Component = TrapezoidCalculator
-        break
+        Component = TrapezoidCalculator;
+        break;
+      case 'bmi': // Add case for BMI Calculator
+        Component = BMICalculator;
+        break;
       default:
-        Component = Calculator
+        Component = Calculator;
     }
 
     return (
@@ -79,17 +83,17 @@ const CalculatorLayout = () => {
           <Component />
         </motion.div>
       </AnimatePresence>
-    )
-  }
+    );
+  };
 
   const handleAreaClick = () => {
-    setIsAreaDropdownOpen(!isAreaDropdownOpen)
-  }
+    setIsAreaDropdownOpen(!isAreaDropdownOpen);
+  };
 
   const handleShapeSelect = (shape) => {
-    setActiveCalculator(shape)
-    setIsAreaDropdownOpen(false)
-  }
+    setActiveCalculator(shape);
+    setIsAreaDropdownOpen(false);
+  };
 
   // Dropdown animation variants
   const dropdownVariants = {
@@ -97,17 +101,17 @@ const CalculatorLayout = () => {
       opacity: 0,
       y: -10,
       transition: {
-        duration: 0.2
-      }
+        duration: 0.2,
+      },
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.2
-      }
-    }
-  }
+        duration: 0.2,
+      },
+    },
+  };
 
   return (
     <div className="flex h-screen bg-gray-900 overflow-hidden">
@@ -144,13 +148,23 @@ const CalculatorLayout = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
-              activeCalculator === "currency"
-                ? "bg-blue-600"
-                : "bg-gray-700 hover:bg-gray-600"
+              activeCalculator === 'currency' ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'
             }`}
-            onClick={() => setActiveCalculator("currency")}
+            onClick={() => setActiveCalculator('currency')}
           >
             Currency Converter
+          </motion.button>
+
+          {/* BMI Calculator Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className={`w-full p-3 text-left text-white rounded-lg transition-colors duration-200 ${
+              activeCalculator === 'bmi' ? 'bg-blue-600' : 'bg-gray-700 hover:bg-gray-600'
+            }`}
+            onClick={() => setActiveCalculator('bmi')}
+          >
+            BMI Calculator
           </motion.button>
 
           {/* Area Calculator Dropdown */}
@@ -217,7 +231,7 @@ const CalculatorLayout = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex items-center justify-center p-8">{renderCalculator()}</div>
     </div>
-  )
-}
+  );
+};
 
-export default CalculatorLayout
+export default CalculatorLayout;
